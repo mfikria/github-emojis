@@ -12,7 +12,6 @@
     "buefy": "^0.6.6",
     "tailwindcss": "^0.6.4",
     "vue": "^2.5.17",
-    "vue-clipboard": "0.0.1",
     "vue-clipboard2": "^0.2.1"
   },
   "devDependencies": {
