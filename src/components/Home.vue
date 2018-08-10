@@ -1,0 +1,66 @@
+<template>
+  <div>
+    <section class="hero is-primary is-medium">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Github Cheatsheet Emoji
+          </h1>
+          <h2 class="subtitle">
+            https://github.com/mfikria/github-emojis
+          </h2>
+        </div>
+      </div>
+    </section>
+    <div class="container is-fullhd">
+      <section class="section">
+        <b-input v-model="keywords" size="is-large" placeholder="Search..." type="search" icon="magnify" />
+      </section>
+      <section class="section">
+        <div class="columns is-desktop is-multiline">
+          <div v-for="(emoji) in filteredEmojis" :key="emoji.key" class="column is-3 is-half-mobile float-left cursor-pointer">
+            <div class="flex justify-center">
+              <figure class="image is-64x64">
+                <img :src="emoji.image">
+              </figure>
+            </div>
+            <div class="text-center">
+              :{{ emoji.key }}:
+            </div>
+          </div>
+        </div>
+        <div v-if="filteredEmojis.length === 0" class="notification is-warning">
+          <span v-if="keywords">No matching results</span>
+          <span v-else>No data</span>
+        </div>
+      </section>
+    </div>
+  </div>
+</template>
+
+<script>
+  const axios = require('axios');
+  export default {
+    name: 'Home',
+    data () {
+      return {
+        emojis: {},
+        keywords: '',
+        url: 'https://api.github.com/emojis'
+      }
+    },
+    computed: {
+      filteredEmojis () {
+        const keys = Object.keys(this.emojis)
+        return keys.filter(key => key.includes(this.keywords))
+          .map(key => ({key, image: this.emojis[key]}))
+      }
+    },
+    mounted () {
+      axios.get(this.url)
+        .then(({ data }) => {
+          this.emojis = data;
+        })
+    }
+  }
+</script>
