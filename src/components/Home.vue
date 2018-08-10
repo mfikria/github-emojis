@@ -37,6 +37,9 @@
           <span v-if="keywords">No matching results</span>
           <span v-else>No data</span>
         </div>
+        <div class="mt-10">
+          <b-loading :is-full-page="false" :active.sync="isLoading"></b-loading>
+        </div>
       </section>
     </div>
   </div>
